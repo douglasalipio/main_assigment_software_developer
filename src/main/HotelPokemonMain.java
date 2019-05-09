@@ -5,8 +5,9 @@
  */
 package main;
 
-import data.PokemonException;
-import data.PokemonReader;
+import data.Fabric;
+import data.PokeException;
+import entity.Pokemon;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,13 +23,9 @@ public class HotelPokemonMain {
     public static void main(String[] args) {
 
         try {
+            System.out.println(new Fabric().buildPokemons().toString());
 
-            for (String pokemonName : PokemonReader
-                    .getInstance(PokemonReader.Type.POKEMON_NAME).getPokemonNames()) {
-                System.out.println(pokemonName);
-            }
-
-        } catch (PokemonException ex) {
+        } catch (PokeException ex) {
             Logger.getLogger(HotelPokemonMain.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

@@ -1,0 +1,11 @@
+{
+    "air": {
+        "types": ["Fire", "Electric", "Flying", "Psychic", "Bug", "Ghost", "Dragon", "Fairy"]
+    },
+    "land": {
+        "types": ["Normal", "Grass", "Fighting", "poison", "Ground", "Rock", "Steel"]
+    },
+    "water": {
+        "types": ["Water", "Ice", "Dark"]
+    }
+}

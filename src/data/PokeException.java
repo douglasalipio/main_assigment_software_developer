@@ -10,9 +10,9 @@ package data;
  *
  * @author hal-9000
  */
-public class PokemonException extends Exception {
+public class PokeException extends Exception {
 
-    public PokemonException(String message) {
+    public PokeException(String message) {
         super(message);
     }
 }

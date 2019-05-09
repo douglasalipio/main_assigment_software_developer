@@ -5,6 +5,8 @@
  */
 package entity;
 
+import entity.category.Category;
+
 /**
  *
  * @author hal-9000
@@ -12,36 +14,33 @@ package entity;
 public class Pokemon {
 
     private final String name;
-    private final String type;
     private final int specialAttack;
     private final int speedRate;
     private final int level;
-    private final Genetic genetic;
+    private final Category category;
+    private final String type;
 
-    public Pokemon(String name, String type,
+    public Pokemon(String name,
             int specialAttack,
             int speedRate,
             int level,
-            Genetic genetic) {
+            Category category,
+            String type) {
 
-        this.genetic = genetic;
         this.name = name;
-        this.type = type;
         this.specialAttack = specialAttack;
         this.speedRate = speedRate;
         this.level = level;
+        this.category = category;
+        this.type = type;
     }
 
-    public Genetic getGenetic() {
-        return genetic;
+    public Category getCategory() {
+        return category;
     }
 
     public String getName() {
         return name;
-    }
-
-    public String getType() {
-        return type;
     }
 
     public int getSpecialAttack() {
@@ -56,4 +55,17 @@ public class Pokemon {
         return level;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    @Override
+    public String toString() {
+        return "Pokemon{" + "name=" + name + ", "
+                + "specialAttack=" + specialAttack + ","
+                + "speedRate=" + speedRate + ", "
+                + "level=" + level + ","
+                + "Category=" + category + ","
+                + "type=" + type + '}' + "\n";
+    }
 }
