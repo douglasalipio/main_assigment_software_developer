@@ -29,6 +29,6 @@ public class Water extends Category{
 
     @Override
     public String toString() {
-        return "Water{" + "types=" + types + '}';
+        return "Water[" + "types=" + types + ']';
     }
 }
