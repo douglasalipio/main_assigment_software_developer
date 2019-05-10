@@ -3,13 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package data;
+package setup;
 
-import entity.category.Air;
-import entity.category.Category;
-import entity.category.Land;
-import entity.category.Water;
-import java.util.List;
+import entity.Air;
+import entity.Category;
+import entity.Land;
+import entity.Water;
 import java.util.Random;
 
 /**
@@ -56,7 +55,7 @@ public class DataSet {
         return rates[rateIndex];
     }
 
-    public int guestLevel() {
+    public int assistentLevel() {
         int[] rates = {1, 2, 3, 4, 5, 6};
         int rateIndex = random.nextInt(rates.length);
         return rates[rateIndex];
@@ -80,9 +79,33 @@ public class DataSet {
         }
     }
 
+    public String getAssistentType(Category category) {
+        if (category instanceof Air) {
+            var air = ((Air) category);
+            int airIndex = random.nextInt(air.getTypes().size());
+            return air.getTypes().get(airIndex);
+
+        } else if (category instanceof Water) {
+            var water = ((Water) category);
+            int airIndex = random.nextInt(water.getTypes().size());
+            return water.getTypes().get(airIndex);
+
+        } else {
+            var land = ((Land) category);
+            int landIndex = random.nextInt(land.getTypes().size());
+            return land.getTypes().get(landIndex);
+        }
+    }
+
+    public int getResistenceRoom() {
+        var max = 7;
+        var min = 3 + 1;
+        return random.nextInt(max) + min;
+    }
+
     public String pokemonName() throws PokeException {
         String name = null;
-        var pokemonNames = PokeReader.getInstance().getPokemonNames();
+        var pokemonNames = TextFileReader.getInstance().getPokemonNames();
         int nameIndex = random.nextInt(pokemonNames.size());
         while (name == null) {
             if (!pokemonNames.get(nameIndex).isEmpty()) {
@@ -93,4 +116,20 @@ public class DataSet {
         return name;
     }
 
+    public String assistantName() throws PokeException {
+        String name = null;
+        var assistantNames = TextFileReader.getInstance().getAssistantNames();
+
+        if (!assistantNames.isEmpty()) {
+            int nameIndex = random.nextInt(assistantNames.size());
+            while (name == null) {
+                if (!assistantNames.get(nameIndex).isEmpty()) {
+                    name = assistantNames.get(nameIndex);
+                    assistantNames.remove(assistantNames.get(nameIndex));
+                }
+            }
+        }
+
+        return name;
+    }
 }

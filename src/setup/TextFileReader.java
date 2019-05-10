@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package data;
+package setup;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.stream.JsonReader;
-import entity.category.Category;
-import entity.category.TypeContainer;
+import entity.Category;
+import entity.TypeContainer;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -25,21 +25,23 @@ import java.util.List;
  *
  * @author hal-9000
  */
-public class PokeReader {
+public class TextFileReader {
 
     private final List<Category> categories = new ArrayList();
     private final LinkedList<String> pokemonNames = new LinkedList();
-    private static final String POKEMON_FILE_NAME_PATH = "src/resource/pokemon.txt";
-    private static final String POKEMON_FILE_CATEGORY_PATH = "src/resource/pokemon_categories.json";
-    private static PokeReader instance;
+    private final LinkedList<String> assistantNames = new LinkedList();
+    private static final String ASSISTANT_NAME_PATH = "src/resource/assistant_names.txt";
+    private static final String POKEMON_NAME_PATH = "src/resource/pokemon_names.txt";
+    private static final String POKEMON_CATEGORY_PATH = "src/resource/pokemon_categories.json";
+    private static TextFileReader instance;
 
-    private PokeReader() throws PokeException {
+    private TextFileReader() throws PokeException {
         readResources();
     }
 
-    public static PokeReader getInstance() throws PokeException {
+    public static TextFileReader getInstance() throws PokeException {
         if (instance == null) {
-            instance = new PokeReader();
+            instance = new TextFileReader();
         }
         return instance;
     }
@@ -52,11 +54,19 @@ public class PokeReader {
         return categories;
     }
 
+    public LinkedList<String> getAssistantNames() {
+        return assistantNames;
+    }
+    
     private void readResources() throws PokeException {
         try {
             pokemonNames.addAll(Files
-                    .readAllLines(Paths.get(POKEMON_FILE_NAME_PATH),
+                    .readAllLines(Paths.get(POKEMON_NAME_PATH),
                             Charset.forName("ISO-8859-1")));
+            
+             assistantNames.addAll(Files
+                    .readAllLines(Paths.get(ASSISTANT_NAME_PATH),
+                            Charset.forName("UTF-8")));
             readPokemonCategories();
         } catch (IOException ex) {
             throw new PokeException("(Error when try to read pokemon resources)" + ex);
@@ -65,7 +75,7 @@ public class PokeReader {
     
     private void readPokemonCategories() throws PokeException {
         try {
-            var path = Paths.get(POKEMON_FILE_CATEGORY_PATH).toFile().getPath();
+            var path = Paths.get(POKEMON_CATEGORY_PATH).toFile().getPath();
             var gson = new GsonBuilder().create();
             var reader = new JsonReader(new FileReader(path));
             TypeContainer typeContainer = gson.fromJson(reader, TypeContainer.class);

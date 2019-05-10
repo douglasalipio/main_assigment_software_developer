@@ -3,13 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package data;
+package setup;
 
 import entity.Pokemon;
-import entity.category.Air;
-import entity.category.Category;
-import entity.category.Land;
-import entity.category.Water;
+import entity.Air;
+import entity.Assistant;
+import entity.Category;
+import entity.Land;
+import entity.Room;
+import entity.Water;
 import java.util.LinkedList;
 
 /**
@@ -19,7 +21,8 @@ import java.util.LinkedList;
 public class Fabric {
 
     private static final int POKEMON_SIZE = 80;
-    private static final int ROOMS = 100;
+    private static final int ROOMS_SIZE = 100;
+    private static final int ASSISTANTS_SIZE = 20;
     private final DataSet dataSet = DataSet.instance();
 
     public LinkedList<Pokemon> buildPokemons() throws PokeException {
@@ -57,8 +60,19 @@ public class Fabric {
         return pokemonContainer;
     }
 
+    public LinkedList<Assistant> buildAssistants() throws PokeException {
+        var assistants = new LinkedList<Assistant>();
+        for (int i = 0; i < ASSISTANTS_SIZE; i++) {
+            var assistant = new Assistant(dataSet.assistantName(),
+                    dataSet.assistentLevel());
+            assistants.add(assistant);
+        }
+
+        return assistants;
+    }
+
     private Category filterLand() throws PokeException {
-        var category = PokeReader.getInstance().getCategories()
+        var category = TextFileReader.getInstance().getCategories()
                 .stream()
                 .filter(it -> it instanceof Land)
                 .findFirst()
@@ -67,7 +81,7 @@ public class Fabric {
     }
 
     private Category filterWater() throws PokeException {
-        var category = PokeReader.getInstance().getCategories()
+        var category = TextFileReader.getInstance().getCategories()
                 .stream()
                 .filter(it -> it instanceof Water)
                 .findFirst()
@@ -76,16 +90,19 @@ public class Fabric {
     }
 
     private Category filterAir() throws PokeException {
-        var air = PokeReader.getInstance().getCategories()
+        var category = TextFileReader.getInstance().getCategories()
                 .stream()
                 .filter(it -> it instanceof Air)
                 .findFirst()
                 .orElse(null);
-        var category = (Category) air;
         return category;
     }
 
-    public LinkedList<Pokemon> buildRooms() {
-        return null;
+    public LinkedList<Room> buildRooms() {
+        var rooms = new LinkedList<Room>();
+        for (int i = 0; i < ROOMS_SIZE; i++) {
+            rooms.add(new Room(dataSet.getResistenceRoom()));
+        }
+        return rooms;
     }
 }

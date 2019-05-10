@@ -1,9 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package entity.category;
+package entity;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -13,7 +8,7 @@ import java.util.List;
  *
  * @author hal-9000
  */
-public class Air extends Category{
+public class Water extends Category{
 
     @SerializedName("types")
     @Expose
@@ -29,7 +24,6 @@ public class Air extends Category{
 
     @Override
     public String toString() {
-        return "Air{" + "types=" + types + '}';
+        return "Water{" + "types=" + types + '}';
     }
-
 }

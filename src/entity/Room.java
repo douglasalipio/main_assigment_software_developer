@@ -1,9 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entity;
+
+import utils.ColorUtils;
 
 /**
  *
@@ -11,11 +8,12 @@ package entity;
  */
 public class Room {
 
-    private long id;
+    private final long id;
     private int resistence;
+    private Pokemon guest = null;
 
-    public Room(long id, int resistence) {
-        this.id = id;
+    public Room(int resistence) {
+        this.id = System.nanoTime();
         this.resistence = resistence;
     }
 
@@ -23,15 +21,29 @@ public class Room {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
     public int getResistence() {
         return resistence;
     }
 
-    public void setResistence(int resistence) {
-        this.resistence = resistence;
+    public Pokemon getGuest() {
+        return guest;
     }
+
+    public boolean accept(Pokemon pokemon) {
+        var pokemonAttack = pokemon.getSpecialAttack() + pokemon.getSpeedRate() / 3;
+        if (pokemonAttack > resistence) {
+            guest = pokemon;
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        return "" + ColorUtils.ANSI_GREEN + "Room:" + "\n"
+                + "\t" + ColorUtils.ANSI_RED + "id = " + ColorUtils.ANSI_WHITE + "" + id + "\n"
+                + "\t" + ColorUtils.ANSI_RED + "resistence = " + ColorUtils.ANSI_WHITE + "" + resistence + "\n"
+                + "\t" + ColorUtils.ANSI_RED + "guest = " + ColorUtils.ANSI_WHITE + "" + guest + "\n";
+    }
+
 }

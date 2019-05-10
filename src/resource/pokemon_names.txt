@@ -80,7 +80,7 @@ Slowpoke
 Slowbro
 Magnemite
 Magneton
-Farfetch’d
+Farfetchï¿½d
 Doduo
 Dodrio
 Seel
@@ -666,7 +666,7 @@ Spewpa
 Vivillon
 Litleo
 Pyroar
-Flabébé
+Flabï¿½bï¿½
 Floette
 Florges
 Skiddo

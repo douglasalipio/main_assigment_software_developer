@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package entity.category;
+package entity;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author hal-9000
  */
-public class Land extends Category{
+public class Air extends Category{
 
     @SerializedName("types")
     @Expose
@@ -29,7 +29,7 @@ public class Land extends Category{
 
     @Override
     public String toString() {
-        return "Land{" + "types=" + types + '}';
+        return "Air{" + "types=" + types + '}';
     }
 
 }
