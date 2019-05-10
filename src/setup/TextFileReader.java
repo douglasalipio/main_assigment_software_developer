@@ -30,6 +30,7 @@ public class TextFileReader {
     private final List<Category> categories = new ArrayList();
     private final LinkedList<String> pokemonNames = new LinkedList();
     private final LinkedList<String> assistantNames = new LinkedList();
+    private final LinkedList<String> allTypes = new LinkedList();
     private static final String ASSISTANT_NAME_PATH = "src/resource/assistant_names.txt";
     private static final String POKEMON_NAME_PATH = "src/resource/pokemon_names.txt";
     private static final String POKEMON_CATEGORY_PATH = "src/resource/pokemon_categories.json";
@@ -57,14 +58,14 @@ public class TextFileReader {
     public LinkedList<String> getAssistantNames() {
         return assistantNames;
     }
-    
+
     private void readResources() throws PokeException {
         try {
             pokemonNames.addAll(Files
                     .readAllLines(Paths.get(POKEMON_NAME_PATH),
                             Charset.forName("ISO-8859-1")));
-            
-             assistantNames.addAll(Files
+
+            assistantNames.addAll(Files
                     .readAllLines(Paths.get(ASSISTANT_NAME_PATH),
                             Charset.forName("UTF-8")));
             readPokemonCategories();
@@ -72,18 +73,29 @@ public class TextFileReader {
             throw new PokeException("(Error when try to read pokemon resources)" + ex);
         }
     }
-    
+
     private void readPokemonCategories() throws PokeException {
         try {
+
             var path = Paths.get(POKEMON_CATEGORY_PATH).toFile().getPath();
             var gson = new GsonBuilder().create();
             var reader = new JsonReader(new FileReader(path));
-            TypeContainer typeContainer = gson.fromJson(reader, TypeContainer.class);
-            categories.add(typeContainer.getAir());
-            categories.add(typeContainer.getLand());
-            categories.add(typeContainer.getWater());
+            TypeContainer stamp = gson.fromJson(reader, TypeContainer.class);
+
+            categories.add(stamp.getAir());
+            categories.add(stamp.getLand());
+            categories.add(stamp.getWater());
+
+            allTypes.addAll(stamp.getAir().getTypes());
+            allTypes.addAll(stamp.getLand().getTypes());
+            allTypes.addAll(stamp.getWater().getTypes());
+
         } catch (JsonIOException | JsonSyntaxException | FileNotFoundException e) {
             throw new PokeException("(Error when try to parse pokemon resources)" + e);
         }
+    }
+
+    public List<String> allPokemonTypes() {
+        return allTypes;
     }
 }

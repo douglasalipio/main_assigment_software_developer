@@ -8,6 +8,7 @@ import utils.ColorUtils;
  */
 public class Pokemon {
 
+    private final long id;
     private final String name;
     private final int specialAttack;
     private final int speedRate;
@@ -21,7 +22,7 @@ public class Pokemon {
             int level,
             Category category,
             String type) {
-
+        this.id = System.nanoTime();
         this.name = name;
         this.specialAttack = specialAttack;
         this.speedRate = speedRate;
@@ -52,6 +53,10 @@ public class Pokemon {
 
     public String getType() {
         return type;
+    }
+
+    public long getId() {
+        return id;
     }
 
     @Override

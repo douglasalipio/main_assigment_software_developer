@@ -18,8 +18,7 @@ public class HotelPokemonMain {
     public static void main(String[] args) {
 
         try {
-            var test =new Fabric().buildAssistants();
-            System.out.println(test);
+            System.out.println(new Fabric().buildAssistants().toString());
 
         } catch (Exception ex) {
             Logger.getLogger(HotelPokemonMain.class.getName()).log(Level.SEVERE, null, ex);

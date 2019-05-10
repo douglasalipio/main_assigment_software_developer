@@ -31,7 +31,8 @@ public class Fabric {
         for (int i = 0; i < POKEMON_SIZE; i++) {
             Pokemon pokemon = null;
             if (i < POKEMON_SIZE / 3) {
-                var landCategory = filterLand();
+                var landCategory = dataSet.filterLand();
+                landCategory.set(new Land());
                 pokemon = new Pokemon(dataSet.pokemonName(),
                         dataSet.attackRate(),
                         dataSet.speedRate(),
@@ -39,7 +40,8 @@ public class Fabric {
                         landCategory,
                         dataSet.getPokemonType(landCategory));
             } else if (i > POKEMON_SIZE / 3 && i < POKEMON_SIZE / 2) {
-                var airCategory = filterAir();
+                var airCategory = dataSet.filterAir();
+                airCategory.set(new Air());
                 pokemon = new Pokemon(dataSet.pokemonName(),
                         dataSet.attackRate(),
                         dataSet.speedRate(),
@@ -47,7 +49,8 @@ public class Fabric {
                         airCategory,
                         dataSet.getPokemonType(airCategory));
             } else {
-                var waterCategory = filterWater();
+                var waterCategory = dataSet.filterWater();
+                waterCategory.set(new Water());
                 pokemon = new Pokemon(dataSet.pokemonName(),
                         dataSet.attackRate(),
                         dataSet.speedRate(),
@@ -65,41 +68,16 @@ public class Fabric {
         for (int i = 0; i < ASSISTANTS_SIZE; i++) {
             var assistant = new Assistant(dataSet.assistantName(),
                     dataSet.assistentLevel());
+            var types = dataSet.getAssistentType();
+            assistant.addTypes(types);
             assistants.add(assistant);
         }
 
         return assistants;
     }
 
-    private Category filterLand() throws PokeException {
-        var category = TextFileReader.getInstance().getCategories()
-                .stream()
-                .filter(it -> it instanceof Land)
-                .findFirst()
-                .orElse(null);
-        return category;
-    }
-
-    private Category filterWater() throws PokeException {
-        var category = TextFileReader.getInstance().getCategories()
-                .stream()
-                .filter(it -> it instanceof Water)
-                .findFirst()
-                .orElse(null);
-        return category;
-    }
-
-    private Category filterAir() throws PokeException {
-        var category = TextFileReader.getInstance().getCategories()
-                .stream()
-                .filter(it -> it instanceof Air)
-                .findFirst()
-                .orElse(null);
-        return category;
-    }
-
     public LinkedList<Room> buildRooms() {
-        var rooms = new LinkedList<Room>();
+        var rooms = new LinkedList();
         for (int i = 0; i < ROOMS_SIZE; i++) {
             rooms.add(new Room(dataSet.getResistenceRoom()));
         }

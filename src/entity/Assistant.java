@@ -44,8 +44,8 @@ public class Assistant {
             if (this.types.size() < LIMIT_TYPES) {
                 this.types.add(type);
             } else {
-                throw new PokeException("ArrayIndex out of bounds - "
-                        + "Limit size is" + LIMIT_TYPES);
+                throw new PokeException("Only two types are allowed. Total types "
+                        + "limit is" + LIMIT_TYPES);
             }
         }
     }
@@ -55,8 +55,9 @@ public class Assistant {
             if (this.guests.size() < LIMIT_GUEST) {
                 this.guests.add(guest);
             } else {
-                throw new PokeException("ArrayIndex out of bounds - "
-                        + "Limit size is" + LIMIT_GUEST);
+                throw new PokeException("Only two types are allowed. Total types "
+                        + "limit is" + LIMIT_GUEST);
+
             }
         }
     }

@@ -9,6 +9,8 @@ import entity.Air;
 import entity.Category;
 import entity.Land;
 import entity.Water;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -73,25 +75,7 @@ public class DataSet {
             return water.getTypes().get(airIndex);
 
         } else {
-            var land = ((Land) category);
-            int landIndex = random.nextInt(land.getTypes().size());
-            return land.getTypes().get(landIndex);
-        }
-    }
-
-    public String getAssistentType(Category category) {
-        if (category instanceof Air) {
-            var air = ((Air) category);
-            int airIndex = random.nextInt(air.getTypes().size());
-            return air.getTypes().get(airIndex);
-
-        } else if (category instanceof Water) {
-            var water = ((Water) category);
-            int airIndex = random.nextInt(water.getTypes().size());
-            return water.getTypes().get(airIndex);
-
-        } else {
-            var land = ((Land) category);
+            Land land = ((Land) category);
             int landIndex = random.nextInt(land.getTypes().size());
             return land.getTypes().get(landIndex);
         }
@@ -132,4 +116,50 @@ public class DataSet {
 
         return name;
     }
+
+    public String[] getAssistentType() throws PokeException {
+        List<String> types = new ArrayList();
+        int count = 0;
+        var allTypes = TextFileReader.getInstance().allPokemonTypes();
+        var currentIndex = random.nextInt(allTypes.size());
+        types.add(allTypes.get(currentIndex));
+        while (count < 1) {
+            var currentType = allTypes.get(random.nextInt(allTypes.size()));
+            if (!currentType.equalsIgnoreCase(types.get(0))) {
+                count++;
+                types.add(currentType);
+            }
+        }
+        return types
+                .stream()
+                .toArray(String[]::new);
+    }
+
+    public Category filterLand() throws PokeException {
+        var category = TextFileReader.getInstance().getCategories()
+                .stream()
+                .filter(it -> it instanceof Land)
+                .findFirst()
+                .orElse(null);
+        return category;
+    }
+
+    public Category filterWater() throws PokeException {
+        var category = TextFileReader.getInstance().getCategories()
+                .stream()
+                .filter(it -> it instanceof Water)
+                .findFirst()
+                .orElse(null);
+        return category;
+    }
+
+    public Category filterAir() throws PokeException {
+        var category = TextFileReader.getInstance().getCategories()
+                .stream()
+                .filter(it -> it instanceof Air)
+                .findFirst()
+                .orElse(null);
+        return category;
+    }
+
 }
