@@ -50,16 +50,19 @@ public class Assistant {
         }
     }
 
-    public void addGuests(Pokemon... guests) throws PokeException {
+    public boolean addGuests(Pokemon... guests) throws PokeException {
+        var res = false;
         for (Pokemon guest : guests) {
             if (this.guests.size() < LIMIT_GUEST) {
                 this.guests.add(guest);
+                res = true;
             } else {
-                throw new PokeException("Only two types are allowed. Total types "
-                        + "limit is" + LIMIT_GUEST);
-
+                res = false;
+                throw new PokeException("Only five types are allowed. Total guests "
+                        + "limit is" + guests.length);
             }
         }
+        return res;
     }
 
     @Override

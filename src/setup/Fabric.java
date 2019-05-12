@@ -8,11 +8,11 @@ package setup;
 import entity.Pokemon;
 import entity.Air;
 import entity.Assistant;
-import entity.Category;
 import entity.Land;
 import entity.Room;
 import entity.Water;
 import java.util.LinkedList;
+import java.util.Random;
 
 /**
  *
@@ -24,10 +24,25 @@ public class Fabric {
     private static final int ROOMS_SIZE = 100;
     private static final int ASSISTANTS_SIZE = 20;
     private final DataSet dataSet = DataSet.instance();
+    private final LinkedList<Pokemon> pokemons = new LinkedList();
+    private final LinkedList<Assistant> assistants = new LinkedList();
+    private final LinkedList<Room> rooms = new LinkedList();
+    private static Fabric instance;
 
-    public LinkedList<Pokemon> buildPokemons() throws PokeException {
-        var pokemonContainer = new LinkedList<Pokemon>();
+    private Fabric() throws PokeException {
+        buildPokemons();
+        buildAssistants();
+        buildRooms();
+    }
 
+    public static Fabric instance() throws PokeException {
+        if (instance == null) {
+            return new Fabric();
+        }
+        return instance;
+    }
+
+    private LinkedList<Pokemon> buildPokemons() throws PokeException {
         for (int i = 0; i < POKEMON_SIZE; i++) {
             Pokemon pokemon = null;
             if (i < POKEMON_SIZE / 3) {
@@ -58,29 +73,60 @@ public class Fabric {
                         waterCategory,
                         dataSet.getPokemonType(waterCategory));
             }
-            pokemonContainer.add(pokemon);
+            pokemons.add(pokemon);
         }
-        return pokemonContainer;
+        return pokemons;
     }
 
-    public LinkedList<Assistant> buildAssistants() throws PokeException {
-        var assistants = new LinkedList<Assistant>();
+    private LinkedList<Assistant> buildAssistants() throws PokeException {
         for (int i = 0; i < ASSISTANTS_SIZE; i++) {
             var assistant = new Assistant(dataSet.assistantName(),
                     dataSet.assistentLevel());
             var types = dataSet.getAssistentType();
             assistant.addTypes(types);
+            var guest = assistantGuests(types[new Random().nextInt(2)]);
+            var res = assistant.addGuests(guest);
+            if (res) {
+                pokemons.remove(guest);
+            }
             assistants.add(assistant);
         }
 
         return assistants;
     }
 
-    public LinkedList<Room> buildRooms() {
-        var rooms = new LinkedList();
+    private Pokemon assistantGuests(String assistantType) {
+        var guest = this.pokemons
+                .stream()
+                .filter(pokemon -> pokemon.getType().equalsIgnoreCase(assistantType))
+                .findAny()
+                .orElse(null);
+        return guest;
+    }
+
+    private LinkedList<Room> buildRooms() {
         for (int i = 0; i < ROOMS_SIZE; i++) {
-            rooms.add(new Room(dataSet.getResistenceRoom()));
+            var room = new Room(dataSet.getResistenceRoom());
+            rooms.add(room);
+            for (Assistant assistant : assistants) {
+                for (Pokemon pokemon : assistant.getGuests()) {
+                    room.accept(pokemon);
+                    rooms.add(room);
+                }
+            }
         }
+        return rooms;
+    }
+
+    public LinkedList<Pokemon> getPokemons() {
+        return pokemons;
+    }
+
+    public LinkedList<Assistant> getAssistants() {
+        return assistants;
+    }
+
+    public LinkedList<Room> getRooms() {
         return rooms;
     }
 }

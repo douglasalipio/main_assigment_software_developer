@@ -30,10 +30,12 @@ public class Room {
     }
 
     public boolean accept(Pokemon pokemon) {
-        var pokemonAttack = pokemon.getSpecialAttack() + pokemon.getSpeedRate() / 3;
-        if (pokemonAttack > resistence) {
-            guest = pokemon;
-            return true;
+        if (pokemon != null) {
+            var pokemonAttack = pokemon.getSpecialAttack() + pokemon.getSpeedRate() / 3;
+            if (pokemonAttack > resistence) {
+                guest = pokemon;
+                return true;
+            }
         }
         return false;
     }
