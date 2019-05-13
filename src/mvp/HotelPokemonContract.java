@@ -5,6 +5,9 @@
  */
 package mvp;
 
+import entity.Pokemon;
+import java.util.LinkedList;
+
 /**
  *
  * @author hal-9000
@@ -18,6 +21,8 @@ public class HotelPokemonContract {
         public void showTotalEmptyRooms(int size);
 
         public void showTotalUnssignedAssistant(int size);
+
+        public void showAllPokemons(LinkedList<Pokemon> pokemons);
     }
 
     public interface BasePresenter {
@@ -29,6 +34,8 @@ public class HotelPokemonContract {
         public void getEmptyRooms();
 
         public void unssignedAssistants();
+
+        public void submitSearchAssistant(int option);
 
     }
 

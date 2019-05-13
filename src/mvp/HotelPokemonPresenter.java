@@ -28,8 +28,7 @@ public class HotelPokemonPresenter implements HotelPokemonContract.BasePresenter
     @Override
     public void findSeekingRooms() {
         try {
-            var fabric = Fabric.instance();
-
+            view.showAllPokemons(Fabric.instance().getPokemons());
         } catch (PokeException ex) {
             view.showGenericError(ex.getMessage());
         }
@@ -62,6 +61,11 @@ public class HotelPokemonPresenter implements HotelPokemonContract.BasePresenter
         } catch (PokeException ex) {
             view.showGenericError(ex.getMessage());
         }
+
+    }
+
+    @Override
+    public void submitSearchAssistant(int id) {
 
     }
 
