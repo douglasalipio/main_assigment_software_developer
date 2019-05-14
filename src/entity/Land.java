@@ -10,23 +10,39 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 /**
+ * Class who represent a Land
  *
  * @author hal-9000
  */
-public class Land extends Category{
+public class Land extends Category {
 
     @SerializedName("types")
     @Expose
     private List<String> types = null;
 
+    /**
+     * Getting types of the land.
+     *
+     * @return
+     */
     public List<String> getTypes() {
         return types;
     }
 
+    /**
+     * Set types of the land.
+     *
+     * @param types
+     */
     public void setTypes(List<String> types) {
         this.types = types;
     }
 
+    /**
+     * Printing land.
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return "Land{" + "types=" + types + '}';

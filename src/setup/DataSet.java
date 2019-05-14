@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
+ * Data set class.
  *
  * @author hal-9000
  */
@@ -22,10 +23,18 @@ public class DataSet {
     private final Random random = new Random();
     private static DataSet instance;
 
+    /**
+     * Creating data set.
+     */
     private DataSet() {
 
     }
 
+    /**
+     * Getting data set instance.
+     *
+     * @return
+     */
     public static DataSet instance() {
         if (instance == null) {
             instance = new DataSet();
@@ -33,36 +42,66 @@ public class DataSet {
         return instance;
     }
 
+    /**
+     * Generating attack rate randomly.
+     *
+     * @return
+     */
     public int attackRate() {
         int[] rates = {5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
         int rateIndex = random.nextInt(rates.length);
         return rates[rateIndex];
     }
 
+    /**
+     * Generating speed rate randomly.
+     *
+     * @return
+     */
     public int speedRate() {
         int[] rates = {5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
         int rateIndex = random.nextInt(rates.length);
         return rates[rateIndex];
     }
 
+    /**
+     * Generating level randomly.
+     *
+     * @return
+     */
     public int pokemonLevel() {
         int[] rates = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
         int rateIndex = random.nextInt(rates.length);
         return rates[rateIndex];
     }
 
-    public int resistencekRate() {
+    /**
+     * Generating resistance rate randomly.
+     *
+     * @return
+     */
+    public int resistancekRate() {
         int[] rates = {3, 4, 5, 6, 7};
         int rateIndex = random.nextInt(rates.length);
         return rates[rateIndex];
     }
 
+    /**
+     * Generating level randomly.
+     *
+     * @return
+     */
     public int assistentLevel() {
         int[] rates = {1, 2, 3, 4, 5, 6};
         int rateIndex = random.nextInt(rates.length);
         return rates[rateIndex];
     }
 
+    /**
+     * Generating Pokemon type randomly.
+     *
+     * @return
+     */
     public String getPokemonType(Category category) {
         if (category instanceof Air) {
             var air = ((Air) category);
@@ -81,12 +120,22 @@ public class DataSet {
         }
     }
 
-    public int getResistenceRoom() {
+    /**
+     * Generating resistance room randomly.
+     *
+     * @return
+     */
+    public int getResistanceRoom() {
         var max = 7;
         var min = 3 + 1;
         return random.nextInt(max) + min;
     }
 
+    /**
+     * Getting Pokemon names from file.
+     *
+     * @return
+     */
     public String pokemonName() throws PokeException {
         String name = null;
         var pokemonNames = TextFileReader.getInstance().getPokemonNames();
@@ -100,6 +149,12 @@ public class DataSet {
         return name;
     }
 
+    /**
+     * Getting assistant name from file.
+     *
+     * @return
+     * @throws PokeException
+     */
     public String assistantName() throws PokeException {
         String name = null;
         var assistantNames = TextFileReader.getInstance().getAssistantNames();
@@ -117,6 +172,12 @@ public class DataSet {
         return name;
     }
 
+    /**
+     * Getting assistant type from a JSON file.
+     *
+     * @return
+     * @throws PokeException
+     */
     public String[] getAssistentType() throws PokeException {
         List<String> types = new ArrayList();
         int count = 0;
@@ -135,6 +196,12 @@ public class DataSet {
                 .toArray(String[]::new);
     }
 
+    /**
+     * Filter category by Land.
+     *
+     * @return
+     * @throws PokeException
+     */
     public Category filterLand() throws PokeException {
         var category = TextFileReader.getInstance().getCategories()
                 .stream()
@@ -144,6 +211,12 @@ public class DataSet {
         return category;
     }
 
+    /**
+     * Filter category by Water.
+     *
+     * @return
+     * @throws PokeException
+     */
     public Category filterWater() throws PokeException {
         var category = TextFileReader.getInstance().getCategories()
                 .stream()
@@ -153,6 +226,12 @@ public class DataSet {
         return category;
     }
 
+    /**
+     * Filter category by Air.
+     *
+     * @return
+     * @throws PokeException
+     */
     public Category filterAir() throws PokeException {
         var category = TextFileReader.getInstance().getCategories()
                 .stream()

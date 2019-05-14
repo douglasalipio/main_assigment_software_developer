@@ -22,6 +22,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * Text reader class.
  *
  * @author hal-9000
  */
@@ -40,6 +41,12 @@ public class TextFileReader {
         readResources();
     }
 
+    /**
+     * Getting textReader instance.
+     *
+     * @return
+     * @throws PokeException
+     */
     public static TextFileReader getInstance() throws PokeException {
         if (instance == null) {
             instance = new TextFileReader();
@@ -47,18 +54,38 @@ public class TextFileReader {
         return instance;
     }
 
+    /**
+     * Getting Pokemon names from file.
+     *
+     * @return
+     */
     public LinkedList<String> getPokemonNames() {
         return this.pokemonNames;
     }
 
+    /**
+     * Getting Pokemon categories from file.
+     *
+     * @return
+     */
     public List<Category> getCategories() {
         return categories;
     }
 
+    /**
+     * Getting Assistant name from file.
+     *
+     * @return
+     */
     public LinkedList<String> getAssistantNames() {
         return assistantNames;
     }
 
+    /**
+     * Reading files.
+     *
+     * @return
+     */
     private void readResources() throws PokeException {
         try {
             pokemonNames.addAll(Files
@@ -74,6 +101,11 @@ public class TextFileReader {
         }
     }
 
+    /**
+     * Reading Pokemon categories JSON.
+     *
+     * @throws PokeException
+     */
     private void readPokemonCategories() throws PokeException {
         try {
 
@@ -95,6 +127,11 @@ public class TextFileReader {
         }
     }
 
+    /**
+     * All types available.
+     *
+     * @return
+     */
     public List<String> allPokemonTypes() {
         return allTypes;
     }

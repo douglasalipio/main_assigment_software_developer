@@ -6,6 +6,7 @@
 package utils;
 
 /**
+ * Output colors.
  *
  * @author hal-9000
  */

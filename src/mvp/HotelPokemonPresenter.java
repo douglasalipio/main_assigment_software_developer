@@ -11,6 +11,7 @@ import setup.Fabric;
 import setup.PokeException;
 
 /**
+ * Class responsible to the business logic.
  *
  * @author hal-9000
  */
@@ -18,15 +19,14 @@ public class HotelPokemonPresenter implements HotelPokemonContract.BasePresenter
 
     private HotelPokemonContract.BaseView view;
 
-    public HotelPokemonPresenter() {
-
-    }
-
     @Override
     public void attach(HotelPokemonUI view) {
         this.view = view;
     }
 
+    /**
+     * Finding all Pokemons.
+     */
     @Override
     public void findSeekingRooms() {
         try {
@@ -36,6 +36,9 @@ public class HotelPokemonPresenter implements HotelPokemonContract.BasePresenter
         }
     }
 
+    /**
+     * How many empty rooms.
+     */
     @Override
     public void getEmptyRooms() {
         try {
@@ -51,6 +54,9 @@ public class HotelPokemonPresenter implements HotelPokemonContract.BasePresenter
 
     }
 
+    /**
+     * Unassigned assistants.
+     */
     @Override
     public void unssignedAssistants() {
         try {
@@ -66,6 +72,11 @@ public class HotelPokemonPresenter implements HotelPokemonContract.BasePresenter
 
     }
 
+    /**
+     * Searching assistant by ID.
+     *
+     * @param id
+     */
     @Override
     public void submitSearchAssistant(long id) {
         var rooms = new ArrayList();
@@ -101,6 +112,10 @@ public class HotelPokemonPresenter implements HotelPokemonContract.BasePresenter
         }
     }
 
+    /**
+     * All Pokemons who is in a room.
+     *
+     */
     @Override
     public void allPokemonsAccommodated() {
         try {
@@ -110,7 +125,7 @@ public class HotelPokemonPresenter implements HotelPokemonContract.BasePresenter
                     .filter(room -> room.getGuest() != null)
                     .collect(Collectors.toList());
             if (busyRoom != null) {
-                view.showTotalHotelAccomodate(busyRoom);
+                view.showTotalHotelAccommodate(busyRoom);
             }
 
         } catch (PokeException ex) {
@@ -118,6 +133,10 @@ public class HotelPokemonPresenter implements HotelPokemonContract.BasePresenter
         }
     }
 
+    /**
+     * Finding pokemons who does not have a room.
+     *
+     */
     @Override
     public void findPokemonsWaitingList() {
         try {
@@ -132,6 +151,11 @@ public class HotelPokemonPresenter implements HotelPokemonContract.BasePresenter
         }
     }
 
+    /**
+     * Searching room by ID.
+     *
+     * @param id
+     */
     @Override
     public void submitSearchRoom(long id) {
         try {
@@ -147,6 +171,11 @@ public class HotelPokemonPresenter implements HotelPokemonContract.BasePresenter
         }
     }
 
+    /**
+     * Searching category by name.
+     *
+     * @param category
+     */
     @Override
     public void submitSearchCategory(String category) {
         try {

@@ -4,6 +4,7 @@ import utils.ColorUtils;
 import utils.Generator;
 
 /**
+ * Class who represent a room.
  *
  * @author hal-9000
  */
@@ -14,31 +15,68 @@ public class Room {
     private Pokemon guest = null;
     private long assistantId;
 
+    /**
+     * Creating a room.
+     *
+     * @param resistence
+     */
     public Room(int resistence) {
         this.id = Generator.instance().createID();
         this.resistence = resistence;
     }
 
+    /**
+     * Getting id.
+     *
+     * @return
+     */
     public long getId() {
         return id;
     }
 
+    /**
+     * Set a assistant to the room.
+     *
+     * @param assistantId
+     */
     public void setAssistantId(long assistantId) {
         this.assistantId = assistantId;
     }
 
-    public int getResistence() {
+    /**
+     * Getting resistance.
+     *
+     * @return
+     */
+    public int getResistance() {
         return resistence;
     }
 
+    /**
+     * Getting guest to the room.
+     *
+     * @return
+     */
     public Pokemon getGuest() {
         return guest;
     }
 
+    /**
+     * Getting assistant id.
+     *
+     * @return
+     */
     public long getAssistantId() {
         return assistantId;
     }
 
+    /**
+     * To accept a Pokemon in the room, the Pokemon guest’s special attack plus
+     * speed rating divided by 3 to allow a Pokemon to stay in the room
+     *
+     * @param pokemon
+     * @return
+     */
     public boolean accept(Pokemon pokemon) {
         if (pokemon != null) {
             var pokemonAttack = pokemon.getSpecialAttack() + pokemon.getSpeedRate() / 3;
@@ -50,6 +88,11 @@ public class Room {
         return false;
     }
 
+    /**
+     * Printing a room.
+     *
+     * @return
+     */
     @Override
     public String toString() {
 

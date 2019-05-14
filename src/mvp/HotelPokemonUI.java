@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
+ * UI class.
  *
  * @author hal-9000
  */
@@ -22,10 +23,16 @@ public class HotelPokemonUI implements HotelPokemonContract.BaseView {
 
     private final HotelPokemonContract.BasePresenter presenter = new HotelPokemonPresenter();
 
+    /**
+     * Creating Pokemon UI.
+     */
     public HotelPokemonUI() {
         presenter.attach(this);
     }
 
+    /**
+     * Show main Menu.
+     */
     public void showMainMenu() {
 
         Scanner reader = new Scanner(System.in);
@@ -69,31 +76,49 @@ public class HotelPokemonUI implements HotelPokemonContract.BaseView {
                 showSearchAssistant();
                 break;
             case 7:
-                showRoomById();
+                askRoomById();
                 break;
             case 8:
-                showSearchCategory();
+                askSearchCategory();
                 break;
         }
     }
 
+    /**
+     * Showing generic error message.
+     *
+     * @param message
+     */
     @Override
     public void showGenericError(String message) {
         System.err.print("Something wrong. Try again!");
     }
 
+    /**
+     * Showing total empty rooms.
+     *
+     * @param size
+     */
     @Override
     public void showTotalEmptyRooms(int size) {
         System.out.println("Empty rooms: " + size);
         backMenu();
     }
 
+    /**
+     * Showing total unassigned assistants.
+     *
+     * @param size
+     */
     @Override
     public void showTotalUnssignedAssistant(int size) {
         System.out.println("Unassigned assistants: " + size);
         backMenu();
     }
 
+    /**
+     * Back menu.
+     */
     private void backMenu() {
         Scanner reader = new Scanner(System.in);
         System.out.println("\n1 - Main menu");
@@ -109,12 +134,21 @@ public class HotelPokemonUI implements HotelPokemonContract.BaseView {
 
     }
 
+    /**
+     * Showing assistant by id.
+     *
+     */
     private void showSearchAssistant() {
         Scanner reader = new Scanner(System.in);
         System.out.println("\nEnter assistant ID:");
         presenter.submitSearchAssistant(reader.nextLong());
     }
 
+    /**
+     * Showing all Pokemons.
+     *
+     * @param pokemons
+     */
     @Override
     public void showAllPokemons(LinkedList<Pokemon> pokemons) {
         Collections.shuffle(pokemons);
@@ -124,8 +158,13 @@ public class HotelPokemonUI implements HotelPokemonContract.BaseView {
         backMenu();
     }
 
+    /**
+     * Showing total hotel accommodate.
+     *
+     * @param rooms
+     */
     @Override
-    public void showTotalHotelAccomodate(List<Room> rooms) {
+    public void showTotalHotelAccommodate(List<Room> rooms) {
         rooms.forEach((pokemon) -> {
             System.out.print(pokemon.toString() + " | ");
         });
@@ -133,6 +172,11 @@ public class HotelPokemonUI implements HotelPokemonContract.BaseView {
         backMenu();
     }
 
+    /**
+     * Showing waiting list.
+     *
+     * @param waitingList
+     */
     @Override
     public void showWaitingList(LinkedList<Pokemon> waitingList) {
         waitingList.forEach((pokemon) -> {
@@ -142,6 +186,12 @@ public class HotelPokemonUI implements HotelPokemonContract.BaseView {
         backMenu();
     }
 
+    /**
+     * Showing personal assistant and the room.
+     *
+     * @param rooms
+     * @param assistant
+     */
     @Override
     public void showPersonalAssistant(ArrayList rooms, Assistant assistant) {
         if (assistant != null && assistant.getGuests() != null) {
@@ -155,13 +205,22 @@ public class HotelPokemonUI implements HotelPokemonContract.BaseView {
         backMenu();
     }
 
-    private void showRoomById() {
+    /**
+     * Asking for room id.
+     *
+     */
+    private void askRoomById() {
         Scanner reader = new Scanner(System.in);
         System.out.println("\nEnter room ID:");
         presenter.submitSearchRoom(reader.nextLong());
         backMenu();
     }
 
+    /**
+     * Showing room.
+     *
+     * @param room
+     */
     @Override
     public void showRoomById(Room room) {
         if (room != null) {
@@ -171,13 +230,21 @@ public class HotelPokemonUI implements HotelPokemonContract.BaseView {
         }
     }
 
-    private void showSearchCategory() {
+    /**
+     * Asking for category.
+     */
+    private void askSearchCategory() {
         Scanner reader = new Scanner(System.in);
         System.out.println("\nEnter category name:");
         presenter.submitSearchCategory(reader.next());
         backMenu();
     }
 
+    /**
+     * Showing genetic stamp.
+     *
+     * @param pokemons
+     */
     @Override
     public void showGeneticStamp(List<Pokemon> pokemons) {
 
@@ -185,7 +252,7 @@ public class HotelPokemonUI implements HotelPokemonContract.BaseView {
             pokemons.forEach((pokemon) -> {
                 System.out.println(pokemon.toString());
             });
-        }else{
+        } else {
             System.out.println("Category not found.");
         }
     }

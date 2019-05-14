@@ -13,13 +13,17 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * Base contract class.
  *
  * @author hal-9000
  */
 public class HotelPokemonContract {
 
+    /**
+     * Base view.
+     */
     public interface BaseView {
-        
+
         public void showGenericError(String message);
 
         public void showTotalEmptyRooms(int size);
@@ -28,7 +32,7 @@ public class HotelPokemonContract {
 
         public void showAllPokemons(LinkedList<Pokemon> pokemons);
 
-        public void showTotalHotelAccomodate(List<Room> rooms);
+        public void showTotalHotelAccommodate(List<Room> rooms);
 
         public void showWaitingList(LinkedList<Pokemon> waitingList);
 
@@ -39,6 +43,9 @@ public class HotelPokemonContract {
         public void showGeneticStamp(List<Pokemon> pokemons);
     }
 
+    /**
+     * Base presenter.
+     */
     public interface BasePresenter {
 
         public void attach(HotelPokemonUI view);

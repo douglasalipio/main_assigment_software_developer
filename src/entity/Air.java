@@ -11,22 +11,39 @@ import java.util.List;
 
 /**
  *
+ * Class who represent an Air category
+ *
  * @author hal-9000
  */
-public class Air extends Category{
+public class Air extends Category {
 
     @SerializedName("types")
     @Expose
     private List<String> types = null;
 
+    /**
+     * Getting the types of the Air.
+     *
+     * @return
+     */
     public List<String> getTypes() {
         return types;
     }
 
+    /**
+     * Set the type of Air category.
+     *
+     * @param types
+     */
     public void setTypes(List<String> types) {
         this.types = types;
     }
 
+    /**
+     * Printing air class.
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return "Air{" + "types=" + types + '}';

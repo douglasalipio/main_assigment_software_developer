@@ -5,6 +5,7 @@ import utils.ColorUtils;
 import utils.Generator;
 
 /**
+ * Class who represent a Pokemon
  *
  * @author hal-9000
  */
@@ -18,6 +19,16 @@ public class Pokemon {
     private final Category category;
     private final String type;
 
+    /**
+     * Creating a Pokemon object.
+     *
+     * @param name
+     * @param specialAttack
+     * @param speedRate
+     * @param level
+     * @param category
+     * @param type
+     */
     public Pokemon(String name,
             int specialAttack,
             int speedRate,
@@ -33,34 +44,74 @@ public class Pokemon {
         this.type = type;
     }
 
+    /**
+     * Getting category.
+     *
+     * @return
+     */
     public Category getCategory() {
         return category;
     }
 
+    /**
+     * Getting name.
+     *
+     * @return
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Getting special attack.
+     *
+     * @return
+     */
     public int getSpecialAttack() {
         return specialAttack;
     }
 
+    /**
+     * Getting speed rate.
+     *
+     * @return
+     */
     public int getSpeedRate() {
         return speedRate;
     }
 
+    /**
+     * Getting level.
+     *
+     * @return
+     */
     public int getLevel() {
         return level;
     }
 
+    /**
+     * Getting type.
+     *
+     * @return
+     */
     public String getType() {
         return type;
     }
 
+    /**
+     * Getting id.
+     *
+     * @return
+     */
     public long getId() {
         return id;
     }
 
+    /**
+     * Printing Pokemon.
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return "" + ColorUtils.ANSI_GREEN + "Pokemon" + "\n"

@@ -6,7 +6,7 @@
 package utils;
 
 /**
- *Just building unics ID.
+ *Just building unique ID.
  * 
  * @author hal-9000
  */
@@ -35,7 +35,7 @@ public class Generator {
     }
 
     /**
-     * Generating a unic ID.
+     * Generating a unique ID.
      *
      * @return
      */

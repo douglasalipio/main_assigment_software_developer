@@ -7,11 +7,12 @@ import utils.ColorUtils;
 import utils.Generator;
 
 /**
+ * Class who represent a Personal assistant category
  *
  * @author hal-9000
  */
 public class Assistant {
-    
+
     private final long id;
     private final String name;
     private final int level;
@@ -20,32 +21,69 @@ public class Assistant {
     private static final int LIMIT_GUEST = 5;
     private static final int LIMIT_TYPES = 2;
 
+    /**
+     * Creating a assistant.
+     *
+     * @param name of the assistant
+     * @param level of the assistant.
+     */
     public Assistant(String name, int level) {
         this.id = Generator.instance().createID();
         this.name = name;
         this.level = level;
     }
 
+    /**
+     * Getting name.
+     *
+     * @return
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Getting level
+     *
+     * @return
+     */
     public int getLevel() {
         return level;
     }
 
+    /**
+     * Getting all types from the assistant.
+     *
+     * @return
+     */
     public List<String> getTypes() {
         return types;
     }
 
+    /**
+     * Getting guests.
+     *
+     * @return
+     */
     public List<Pokemon> getGuests() {
         return guests;
     }
 
+    /**
+     * Getting ID.
+     *
+     * @return
+     */
     public long getId() {
         return id;
     }
 
+    /**
+     * Adding types to the assistant.
+     *
+     * @param types
+     * @throws PokeException
+     */
     public void addTypes(String... types) throws PokeException {
         for (String type : types) {
             if (this.types.size() < LIMIT_TYPES) {
@@ -57,6 +95,13 @@ public class Assistant {
         }
     }
 
+    /**
+     * Adding guests to the assistant.
+     *
+     * @param guests
+     * @return
+     * @throws PokeException
+     */
     public boolean addGuests(Pokemon... guests) throws PokeException {
         var res = false;
         for (Pokemon guest : guests) {
@@ -72,6 +117,11 @@ public class Assistant {
         return res;
     }
 
+    /**
+     * Printing assistant.
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return "" + ColorUtils.ANSI_GREEN + "Assistant" + "\n"

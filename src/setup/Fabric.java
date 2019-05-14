@@ -107,7 +107,7 @@ public class Fabric {
 
     private LinkedList<Room> buildRooms() {
         for (Assistant assistant : assistants) {
-            var room = new Room(dataSet.getResistenceRoom());
+            var room = new Room(dataSet.getResistanceRoom());
             for (Pokemon pokemon : assistant.getGuests()) {
                 if (pokemon != null) {
                     room.accept(pokemon);

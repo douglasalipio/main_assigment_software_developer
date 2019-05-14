@@ -3,6 +3,7 @@ package main;
 import mvp.HotelPokemonUI;
 
 /**
+ * Main class
  *
  * @author hal-9000
  */
