@@ -33,6 +33,7 @@ public class Fabric {
         buildPokemons();
         buildAssistants();
         buildRooms();
+        instance = this;
     }
 
     public static Fabric instance() throws PokeException {
@@ -105,16 +106,17 @@ public class Fabric {
     }
 
     private LinkedList<Room> buildRooms() {
-        for (int i = 0; i < ROOMS_SIZE; i++) {
+        for (Assistant assistant : assistants) {
             var room = new Room(dataSet.getResistenceRoom());
-            rooms.add(room);
-            for (Assistant assistant : assistants) {
-                for (Pokemon pokemon : assistant.getGuests()) {
+            for (Pokemon pokemon : assistant.getGuests()) {
+                if (pokemon != null) {
                     room.accept(pokemon);
-                    rooms.add(room);
+                    room.setAssistantId(assistant.getId());
                 }
             }
+            rooms.add(room);
         }
+
         return rooms;
     }
 

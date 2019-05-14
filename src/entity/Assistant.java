@@ -4,13 +4,15 @@ import setup.PokeException;
 import java.util.ArrayList;
 import java.util.List;
 import utils.ColorUtils;
+import utils.Generator;
 
 /**
  *
  * @author hal-9000
  */
 public class Assistant {
-
+    
+    private final long id;
     private final String name;
     private final int level;
     private final List<String> types = new ArrayList();
@@ -19,6 +21,7 @@ public class Assistant {
     private static final int LIMIT_TYPES = 2;
 
     public Assistant(String name, int level) {
+        this.id = Generator.instance().createID();
         this.name = name;
         this.level = level;
     }
@@ -37,6 +40,10 @@ public class Assistant {
 
     public List<Pokemon> getGuests() {
         return guests;
+    }
+
+    public long getId() {
+        return id;
     }
 
     public void addTypes(String... types) throws PokeException {

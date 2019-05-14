@@ -5,8 +5,12 @@
  */
 package mvp;
 
+import entity.Assistant;
 import entity.Pokemon;
+import entity.Room;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
@@ -23,6 +27,12 @@ public class HotelPokemonContract {
         public void showTotalUnssignedAssistant(int size);
 
         public void showAllPokemons(LinkedList<Pokemon> pokemons);
+
+        public void showTotalHotelAccomodate(List<Room> rooms);
+
+        public void showWaitingList(LinkedList<Pokemon> waitingList);
+
+        public void showPersonalAssistant(ArrayList rooms, Assistant assistant);
     }
 
     public interface BasePresenter {
@@ -35,7 +45,11 @@ public class HotelPokemonContract {
 
         public void unssignedAssistants();
 
-        public void submitSearchAssistant(int option);
+        public void submitSearchAssistant(long id);
+
+        public void allPokemonsAccommodated();
+
+        public void findPokemonsWaitingList();
 
     }
 

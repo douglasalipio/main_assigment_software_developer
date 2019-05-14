@@ -5,10 +5,13 @@
  */
 package mvp;
 
+import entity.Assistant;
 import entity.Pokemon;
-import java.util.Collection;
+import entity.Room;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -36,13 +39,12 @@ public class HotelPokemonUI implements HotelPokemonContract.BaseView {
         System.out.println("---------------MENU---------------");
         System.out.println("----------------------------------");
         System.out.println("----------------------------------");
-        System.out.println("(1) The Pokemon group seeking room");
-        System.out.println("(2) The Total of the Pokemon group can accommodate on hotel");
-        System.out.println("(3) The Pokemon group can accommodate on hotel");
-        System.out.println("(4) The Pokemon group cannot accommodate on hotel");
-        System.out.println("(5) Un-ocuppied rooms");
-        System.out.println("(6) Un-assigned personal assistants");
-        System.out.println("(7) Searching personal assistant");
+        System.out.println("(1) All pokemons");
+        System.out.println("(2) Pokemon group can accomodate on the hotel");
+        System.out.println("(3) The Pokemon group cannot accommodate on the hotel");
+        System.out.println("(4) Un-ocuppied rooms");
+        System.out.println("(5) Un-assigned personal assistants");
+        System.out.println("(6) Searching personal assistant");
 
         int option = reader.nextInt();
         switch (option) {
@@ -50,19 +52,19 @@ public class HotelPokemonUI implements HotelPokemonContract.BaseView {
                 presenter.findSeekingRooms();
                 break;
             case 2:
+                presenter.allPokemonsAccommodated();
                 break;
             case 3:
+                presenter.findPokemonsWaitingList();
                 break;
             case 4:
-                break;
-            case 5:
                 presenter.getEmptyRooms();
                 break;
-            case 6:
+            case 5:
                 presenter.unssignedAssistants();
                 break;
-            case 7:
-
+            case 6:
+                showSearchAssistant();
                 break;
         }
     }
@@ -102,14 +104,7 @@ public class HotelPokemonUI implements HotelPokemonContract.BaseView {
     private void showSearchAssistant() {
         Scanner reader = new Scanner(System.in);
         System.out.println("\nEnter assistant ID:");
-        int option = reader.nextInt();
-        switch (option) {
-            case 1:
-                presenter.submitSearchAssistant(option);
-                break;
-            default:
-                break;
-        }
+        presenter.submitSearchAssistant(reader.nextLong());
     }
 
     @Override
@@ -119,5 +114,31 @@ public class HotelPokemonUI implements HotelPokemonContract.BaseView {
             System.out.println(pokemon.toString());
         });
         backMenu();
+    }
+
+    @Override
+    public void showTotalHotelAccomodate(List<Room> rooms) {
+        rooms.forEach((pokemon) -> {
+            System.out.print(pokemon.toString() + " | ");
+        });
+        System.out.println("Total hotel can accommodate: " + rooms.size());
+        backMenu();
+    }
+
+    @Override
+    public void showWaitingList(LinkedList<Pokemon> waitingList) {
+        waitingList.forEach((pokemon) -> {
+            System.out.println(pokemon.toString());
+        });
+        System.out.println("Total of pokemons cannot be accommodate is " + waitingList.size());
+        backMenu();
+    }
+
+    @Override
+    public void showPersonalAssistant(ArrayList rooms, Assistant assistant) {
+        rooms.forEach((room) -> {
+            System.out.println(room.toString());
+        });
+        System.out.println(assistant.toString());
     }
 }
