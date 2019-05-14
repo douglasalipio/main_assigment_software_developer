@@ -33,8 +33,8 @@ public class HotelPokemonUI implements HotelPokemonContract.BaseView {
         System.out.println("-----Welcome to Pokemon Hotel-----");
         System.out.println("----------------------------------");
         System.out.println("Alex                    No 2018274");
-        System.out.println("Catia                   No 2018274");
-        System.out.println("Douglas                 No 2018274");
+        System.out.println("Catia                   No 2018326");
+        System.out.println("Douglas                 No 2018373");
         System.out.println("----------------------------------");
         System.out.println("---------------MENU---------------");
         System.out.println("----------------------------------");
@@ -45,6 +45,8 @@ public class HotelPokemonUI implements HotelPokemonContract.BaseView {
         System.out.println("(4) Un-ocuppied rooms");
         System.out.println("(5) Un-assigned personal assistants");
         System.out.println("(6) Searching personal assistant");
+        System.out.println("(7) Searching room");
+        System.out.println("(8) Searching category");
 
         int option = reader.nextInt();
         switch (option) {
@@ -65,6 +67,12 @@ public class HotelPokemonUI implements HotelPokemonContract.BaseView {
                 break;
             case 6:
                 showSearchAssistant();
+                break;
+            case 7:
+                showRoomById();
+                break;
+            case 8:
+                showSearchCategory();
                 break;
         }
     }
@@ -136,14 +144,49 @@ public class HotelPokemonUI implements HotelPokemonContract.BaseView {
 
     @Override
     public void showPersonalAssistant(ArrayList rooms, Assistant assistant) {
-        if (assistant != null) {
+        if (assistant != null && assistant.getGuests() != null) {
             rooms.forEach((room) -> {
                 System.out.println(room.toString());
             });
             System.out.println(assistant.toString());
         } else {
-            System.err.println("Personal assistant not found.");
+            System.err.println("Personal assistant not found or no pokemon available for him.");
         }
         backMenu();
+    }
+
+    private void showRoomById() {
+        Scanner reader = new Scanner(System.in);
+        System.out.println("\nEnter room ID:");
+        presenter.submitSearchRoom(reader.nextLong());
+        backMenu();
+    }
+
+    @Override
+    public void showRoomById(Room room) {
+        if (room != null) {
+            System.out.println(room.toString());
+        } else {
+            System.out.println("Room not found.");
+        }
+    }
+
+    private void showSearchCategory() {
+        Scanner reader = new Scanner(System.in);
+        System.out.println("\nEnter category name:");
+        presenter.submitSearchCategory(reader.next());
+        backMenu();
+    }
+
+    @Override
+    public void showGeneticStamp(List<Pokemon> pokemons) {
+
+        if (!pokemons.isEmpty()) {
+            pokemons.forEach((pokemon) -> {
+                System.out.println(pokemon.toString());
+            });
+        }else{
+            System.out.println("Category not found.");
+        }
     }
 }

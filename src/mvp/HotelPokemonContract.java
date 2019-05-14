@@ -33,6 +33,10 @@ public class HotelPokemonContract {
         public void showWaitingList(LinkedList<Pokemon> waitingList);
 
         public void showPersonalAssistant(ArrayList rooms, Assistant assistant);
+
+        public void showRoomById(Room room);
+
+        public void showGeneticStamp(List<Pokemon> pokemons);
     }
 
     public interface BasePresenter {
@@ -50,6 +54,10 @@ public class HotelPokemonContract {
         public void allPokemonsAccommodated();
 
         public void findPokemonsWaitingList();
+
+        public void submitSearchRoom(long id);
+
+        public void submitSearchCategory(String category);
 
     }
 

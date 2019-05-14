@@ -94,9 +94,8 @@ public class HotelPokemonPresenter implements HotelPokemonContract.BasePresenter
                     }
 
                 });
-
-                view.showPersonalAssistant(rooms, assistant);
             }
+            view.showPersonalAssistant(rooms, assistant);
         } catch (PokeException ex) {
             view.showGenericError(ex.getMessage());
         }
@@ -128,6 +127,37 @@ public class HotelPokemonPresenter implements HotelPokemonContract.BasePresenter
                 waitingList.removeAll(assistant.getGuests());
             });
             view.showWaitingList(waitingList);
+        } catch (PokeException ex) {
+            view.showGenericError(ex.getMessage());
+        }
+    }
+
+    @Override
+    public void submitSearchRoom(long id) {
+        try {
+            var room = Fabric.instance().getRooms()
+                    .stream()
+                    .filter(it -> it.getId() == id)
+                    .findAny()
+                    .orElse(null);
+            view.showRoomById(room);
+
+        } catch (PokeException ex) {
+            view.showGenericError(ex.getMessage());
+        }
+    }
+
+    @Override
+    public void submitSearchCategory(String category) {
+        try {
+            var pokemons = Fabric.instance().getPokemons()
+                    .stream()
+                    .filter(it -> it.getCategory().getName()
+                    .equalsIgnoreCase(category.trim()))
+                    .collect(Collectors.toList());
+
+            view.showGeneticStamp(pokemons);
+
         } catch (PokeException ex) {
             view.showGenericError(ex.getMessage());
         }
