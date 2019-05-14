@@ -78,21 +78,25 @@ public class HotelPokemonPresenter implements HotelPokemonContract.BasePresenter
                     .findFirst()
                     .orElse(null);
 
-            assistant.getGuests().forEach((guest) -> {
-                if (guest != null) {
-                    var room = fabric.getRooms()
-                            .stream()
-                            .filter(it -> it.getGuest() != null)
-                            .filter(it -> it.getGuest().getId() == guest.getId())
-                            .findAny()
-                            .orElse(null);
-                    if (room != null) {
-                        rooms.add(room);
+            if (assistant != null) {
+                assistant.getGuests().forEach((guest) -> {
+                    if (guest != null) {
+                        var room = fabric.getRooms()
+                                .stream()
+                                .filter(it -> it.getGuest() != null)
+                                .filter(it -> it.getGuest().getId() == guest.getId())
+                                .findAny()
+                                .orElse(null);
+                        if (room != null) {
+                            rooms.add(room);
 
+                        }
                     }
-                }
+
+                });
+
                 view.showPersonalAssistant(rooms, assistant);
-            });
+            }
         } catch (PokeException ex) {
             view.showGenericError(ex.getMessage());
         }

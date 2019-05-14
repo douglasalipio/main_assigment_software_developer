@@ -136,9 +136,14 @@ public class HotelPokemonUI implements HotelPokemonContract.BaseView {
 
     @Override
     public void showPersonalAssistant(ArrayList rooms, Assistant assistant) {
-        rooms.forEach((room) -> {
-            System.out.println(room.toString());
-        });
-        System.out.println(assistant.toString());
+        if (assistant != null) {
+            rooms.forEach((room) -> {
+                System.out.println(room.toString());
+            });
+            System.out.println(assistant.toString());
+        } else {
+            System.err.println("Personal assistant not found.");
+        }
+        backMenu();
     }
 }
